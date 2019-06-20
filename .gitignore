@@ -87,6 +87,7 @@ ENV/
 .vscode
 .flake8
 .pytest_cache/
+*.code-workspace
 
 # Mac files
 **/.DS_Store

@@ -67,6 +67,13 @@ class QueryManager(object):
             self.fields_to_attributes[field_id] = name
 
     def field_name_to_id(self, name):
+        """Given the name of a field, return the JIRA internal field ID. We 
+        guard against someone defining a custom field with name "Status" which
+        might return that internal ID instead of the built-in "status"
+        field, which breaks the calculation of initial snapshot value.
+        """
+        if name.lower() == 'status':
+            return 'status'
         try:
             return next((f['id'] for f in self.jira_fields if f['name'].lower() == name.lower()))
         except StopIteration:
